@@ -1,7 +1,8 @@
 import '../algorithms/linear_search.dart';
 import '../algorithms/binary_search.dart';
+import 'algorithm.dart';
 
-final algorithms = {
-  "Linear Search": linearSearch,
-  "Binary Search": binarySearch,
-};
+final List<Algorithm> algorithms = [
+  linearSearch,
+  binarySearch,
+];

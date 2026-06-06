@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import '../data/algorithm_registry.dart';
 import '../core/constants/colors.dart';
+
 import '../pages/graph_page.dart';
 import '../pages/visual_page.dart';
 import '../pages/code_page.dart';
 import '../pages/compare_page.dart';
 
-/// --------------------
-/// HOME SCREEN
-/// --------------------
+import '../data/algorithm.dart';
+
 class HomeScreen extends StatefulWidget {
   final bool openDrawerOnStart;
 
@@ -19,39 +20,65 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
-  String selectedAlgorithm = "Linear Search";
 
-  final List<Widget> pages = const [
-  GraphPage(),
-  VisualPage(),
-  CodePage(),
-  ComparePage(),
-];
+  late Algorithm selectedAlgorithm;
+
+  String get pageTitle {
+    switch (currentIndex) {
+      case 0:
+        return selectedAlgorithm.name;
+
+      case 1:
+        return "Visualization";
+
+      case 2:
+        return "Code";
+
+      case 3:
+        return "Compare Algorithms";
+
+      default:
+        return selectedAlgorithm.name;
+    }
+  }
+
+  void selectAlgorithm(Algorithm algorithm) {
+    setState(() {
+      selectedAlgorithm = algorithm;
+    });
+
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedAlgorithm = algorithms.first;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: darkBlue,
 
-      /// ---------------- APP BAR ----------------
+      //--------------------------------------------------
+      // APP BAR
+      //--------------------------------------------------
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 25, 167, 233),
-
-        title: Text(
-          currentIndex == 3 ? "Compare Algorithms" : selectedAlgorithm,
-          style: const TextStyle(color: Colors.white),
-        ),
-        iconTheme: const IconThemeData(
-          color: Color.fromARGB(253, 255, 255, 255),
-        ),
+        backgroundColor: primaryBlue,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: Text(pageTitle, style: const TextStyle(color: Colors.white)),
       ),
 
-      /// ---------------- DRAWER ----------------
+      //--------------------------------------------------
+      // DRAWER
+      //--------------------------------------------------
       drawer: Drawer(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.horizontal(right: Radius.circular(20)),
         ),
-        backgroundColor: const Color.fromARGB(255, 175, 226, 250),
+        backgroundColor: Color.fromARGB(255, 175, 226, 250),
         child: ListView(
           children: [
             Container(
@@ -70,54 +97,62 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            ListTile(
-              title: const Text("Linear Search"),
-              onTap: () {
-                setState(() {
-                  selectedAlgorithm = "Linear Search";
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text("Binary Search"),
-              onTap: () {
-                setState(() {
-                  selectedAlgorithm = "Binary Search";
-                });
-                Navigator.pop(context);
-              },
+
+            //--------------------------------------------------
+            // SEARCHING
+            //--------------------------------------------------
+            ...algorithms.map(
+              (algorithm) => ListTile(
+                leading: const Icon(Icons.search),
+                title: Text(algorithm.name),
+                onTap: () {
+                  selectAlgorithm(algorithm);
+                },
+              ),
             ),
           ],
         ),
       ),
 
-      /// ---------------- BODY ----------------
+      //--------------------------------------------------
+      // BODY
+      //--------------------------------------------------
       body: Container(
         margin: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           border: Border.all(color: primaryBlue, width: 2),
           borderRadius: BorderRadius.circular(16),
         ),
-        child: IndexedStack(index: currentIndex, children: pages),
+        child: IndexedStack(
+          index: currentIndex,
+          children: [
+            GraphPage(
+              key: ValueKey(selectedAlgorithm.name),
+              algorithm: selectedAlgorithm,
+            ),
+
+            const VisualPage(),
+
+            const CodePage(),
+
+            const ComparePage(),
+          ],
+        ),
       ),
 
-      /// ---------------- BOTTOM NAV ----------------
+      //--------------------------------------------------
+      // BOTTOM NAVIGATION
+      //--------------------------------------------------
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(8),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(12), // 👈 THIS FIXES IT
+          borderRadius: BorderRadius.circular(12),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color.fromARGB(
-              255,
-              31,
-              156,
-              214,
-            ), // ⚠️ not transparent anymore
+            backgroundColor: primaryBlue,
             currentIndex: currentIndex,
             selectedItemColor: Colors.white,
-            unselectedItemColor: const Color.fromARGB(66, 255, 255, 255),
+            unselectedItemColor: Colors.white54,
             onTap: (index) {
               setState(() {
                 currentIndex = index;
