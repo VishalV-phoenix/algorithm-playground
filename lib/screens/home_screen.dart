@@ -127,11 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
           index: currentIndex,
           children: [
             GraphPage(
-              key: ValueKey(selectedAlgorithm.name),
+              key: ValueKey("graph_${selectedAlgorithm.name}"),
               algorithm: selectedAlgorithm,
             ),
 
-            const VisualPage(),
+            VisualPage(
+              key: ValueKey("visual_${selectedAlgorithm.name}"),
+              algorithm: selectedAlgorithm,
+            ),
 
             const CodePage(),
 
