@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-
+import '../widgets/complexity_graph.dart';
 import '../data/algorithm.dart';
 
 class GraphPage extends StatefulWidget {
@@ -19,6 +19,14 @@ class _GraphPageState extends State<GraphPage> {
 
   List<FlSpot> theoreticalData = [];
   List<FlSpot> experimentalData = [];
+
+  double get maxX {
+    if (theoreticalData.isEmpty) {
+      return selectedInputSize.toDouble();
+    }
+
+    return theoreticalData.last.x;
+  }
 
   @override
   void initState() {
@@ -174,111 +182,12 @@ class _GraphPageState extends State<GraphPage> {
           //--------------------------------------------------
           // GRAPH
           //--------------------------------------------------
-          Container(
-            height: 280,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: LineChart(
-              LineChartData(
-                minX: 0,
-                maxX: theoreticalData.isEmpty
-                    ? selectedInputSize.toDouble()
-                    : theoreticalData.last.x,
-
-                minY: 0,
-                maxY: maxY * 1.1,
-
-                gridData: FlGridData(
-                  show: true,
-                  drawVerticalLine: true,
-                  drawHorizontalLine: true,
-                ),
-
-                borderData: FlBorderData(show: true),
-
-                lineTouchData: LineTouchData(
-                  touchTooltipData: LineTouchTooltipData(
-                    getTooltipItems: (touchedSpots) {
-                      return touchedSpots.map((spot) {
-                        return LineTooltipItem(
-                          'Operations: ${spot.y.toStringAsFixed(1)}\n'
-                          'Input Size: ${spot.x.toInt()}',
-                          TextStyle(
-                            color: spot.bar.color ?? Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        );
-                      }).toList();
-                    },
-                  ),
-                ),
-
-                titlesData: FlTitlesData(
-                  topTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-
-                  rightTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-
-                  leftTitles: AxisTitles(
-                    axisNameWidget: const Text(
-                      "Operations",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    axisNameSize: 30,
-                    sideTitles: SideTitles(showTitles: true, reservedSize: 42),
-                  ),
-
-                  bottomTitles: AxisTitles(
-                    axisNameWidget: const Padding(
-                      padding: EdgeInsets.only(top: 8),
-                      child: Text(
-                        "Input Size",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    axisNameSize: 40,
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) {
-                        return Text(value.toInt().toString());
-                      },
-                    ),
-                  ),
-                ),
-
-                lineBarsData: [
-                  //--------------------------------
-                  // THEORETICAL
-                  //--------------------------------
-                  LineChartBarData(
-                    spots: theoreticalData,
-                    isCurved: true,
-                    barWidth: 4,
-                    dotData: const FlDotData(show: false),
-                    color: Colors.blue,
-                  ),
-
-                  //--------------------------------
-                  // EXPERIMENTAL
-                  //--------------------------------
-                  LineChartBarData(
-                    spots: experimentalData,
-                    isCurved: false,
-                    barWidth: 3,
-                    dotData: const FlDotData(show: true),
-                    color: Colors.red,
-                  ),
-                ],
-              ),
-            ),
+          ComplexityGraph(
+            theoreticalData: theoreticalData,
+            experimentalData: experimentalData,
+            maxX: maxX,
+            maxY: maxY * 1.1,
           ),
-
           const SizedBox(height: 12),
 
           //--------------------------------------------------
