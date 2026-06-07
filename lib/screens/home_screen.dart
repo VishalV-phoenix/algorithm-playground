@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
               algorithm: selectedAlgorithm,
             ),
 
-            const CodePage(),
+            CodePage(algorithm: selectedAlgorithm),
 
             const ComparePage(),
           ],
