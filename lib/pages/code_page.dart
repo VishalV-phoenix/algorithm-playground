@@ -31,6 +31,11 @@ class _CodePageState extends State<CodePage> {
       case "Bubble Sort":
         return selectedLanguage == "Python" ? bubbleSortPython : bubbleSortC;
 
+      case "Selection Sort":
+        return selectedLanguage == "Python"
+            ? selectionSortPython
+            : selectionSortC;
+
       default:
         return "Code not available";
     }

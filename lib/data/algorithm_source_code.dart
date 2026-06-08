@@ -104,3 +104,42 @@ void bubbleSort(int arr[], int n)
     }
 }
 ''';
+
+const selectionSortPython = '''
+def selection_sort(arr):
+    n = len(arr)
+
+    for i in range(n - 1):
+        min_index = i
+
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+
+        arr[i], arr[min_index] = \
+            arr[min_index], arr[i]
+
+    return arr
+''';
+
+const selectionSortC = '''
+void selectionSort(int arr[], int n)
+{
+    for(int i = 0; i < n - 1; i++)
+    {
+        int minIndex = i;
+
+        for(int j = i + 1; j < n; j++)
+        {
+            if(arr[j] < arr[minIndex])
+            {
+                minIndex = j;
+            }
+        }
+
+        int temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+}
+''';

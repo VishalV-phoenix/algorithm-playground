@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return selectedAlgorithm.name;
 
       case 3:
-        return selectedAlgorithm.name;
+        return "Algorithm Comparison";
 
       default:
         return selectedAlgorithm.name;

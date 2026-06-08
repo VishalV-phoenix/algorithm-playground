@@ -14,6 +14,8 @@ import '../data/algorithm.dart';
 
 import '../algorithms/bubble_sort_steps.dart';
 
+import '../algorithms/selection_sort_steps.dart';
+
 class VisualPage extends StatefulWidget {
   final Algorithm algorithm;
 
@@ -47,6 +49,9 @@ class _VisualPageState extends State<VisualPage> {
       case "Bubble Sort":
         return generateBubbleSortSteps([5, 8, 2, 9, 1, 7]);
 
+      case "Selection Sort":
+        return generateSelectionSortSteps([5, 8, 2, 9, 1, 7]);
+
       case "Linear Search":
       default:
         return generateLinearSearchSteps([5, 8, 2, 9, 1, 7], 9);
@@ -60,6 +65,9 @@ class _VisualPageState extends State<VisualPage> {
 
       case "Bubble Sort":
         return bubbleSortCode;
+
+      case "Selection Sort":
+        return selectionSortCode;
 
       case "Linear Search":
       default:
@@ -124,6 +132,7 @@ class _VisualPageState extends State<VisualPage> {
                           array: step.array,
                           highlightedIndices: step.highlightedIndices,
                           sortedIndices: step.sortedIndices,
+                          specialIndices: step.specialIndices,
                         ),
                       ),
                     ],

@@ -7,6 +7,7 @@ class AlgorithmStep {
   final List<int> highlightedIndices;
 
   final List<int> sortedIndices;
+  final List<int> specialIndices;
 
   // Which line of code is active
   final int activeLine;
@@ -23,6 +24,7 @@ class AlgorithmStep {
     required this.array,
     required this.highlightedIndices,
     this.sortedIndices = const [],
+    this.specialIndices = const [],
     required this.activeLine,
     required this.target,
     required this.variables,

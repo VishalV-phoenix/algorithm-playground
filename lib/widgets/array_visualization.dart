@@ -4,12 +4,14 @@ class ArrayVisualization extends StatelessWidget {
   final List<int> array;
   final List<int> highlightedIndices;
   final List<int> sortedIndices;
+  final List<int> specialIndices;
 
   const ArrayVisualization({
     super.key,
     required this.array,
     required this.highlightedIndices,
     this.sortedIndices = const [],
+    this.specialIndices = const [],
   });
 
   @override
@@ -21,6 +23,10 @@ class ArrayVisualization extends StatelessWidget {
         children: List.generate(array.length, (index) {
           bool highlighted = highlightedIndices.contains(index);
 
+          bool sorted = sortedIndices.contains(index);
+
+          bool special = specialIndices.contains(index);
+
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Container(
@@ -28,8 +34,10 @@ class ArrayVisualization extends StatelessWidget {
               height: 50,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: sortedIndices.contains(index)
+                color: sorted
                     ? Colors.green
+                    : special
+                    ? Colors.purple
                     : highlighted
                     ? Colors.orange
                     : Colors.blue.shade400,

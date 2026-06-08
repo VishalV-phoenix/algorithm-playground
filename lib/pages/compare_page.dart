@@ -62,6 +62,11 @@ class _ComparePageState extends State<ComparePage> {
     final dataA = algorithmA.generateTheoreticalCurve(comparisonInputSize);
 
     final dataB = algorithmB.generateTheoreticalCurve(comparisonInputSize);
+
+    final comparisonAlgorithms = availableAlgorithms
+        .where((algorithm) => algorithm != algorithmA)
+        .toList();
+
     return Column(
       children: [
         Expanded(
@@ -103,8 +108,12 @@ class _ComparePageState extends State<ComparePage> {
                       setState(() {
                         algorithmA = value!;
 
-                        if (algorithmB.category != algorithmA.category) {
-                          algorithmB = availableAlgorithms.first;
+                        final validAlgorithms = availableAlgorithms
+                            .where((algorithm) => algorithm != algorithmA)
+                            .toList();
+
+                        if (!validAlgorithms.contains(algorithmB)) {
+                          algorithmB = validAlgorithms.first;
                         }
                       });
                     },
@@ -120,10 +129,12 @@ class _ComparePageState extends State<ComparePage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: DropdownButton<Algorithm>(
-                    value: algorithmB,
+                    value: comparisonAlgorithms.contains(algorithmB)
+                        ? algorithmB
+                        : comparisonAlgorithms.first,
                     isExpanded: true,
                     underline: const SizedBox(),
-                    items: availableAlgorithms.map((algorithm) {
+                    items: comparisonAlgorithms.map((algorithm) {
                       return DropdownMenuItem(
                         value: algorithm,
                         child: Text(algorithm.name),
@@ -201,6 +212,21 @@ class _ComparePageState extends State<ComparePage> {
 
                 const SizedBox(height: 16),
 
+                if (algorithmA.worstCase == algorithmB.worstCase)
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white10,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Text(
+                      "These algorithms have the same asymptotic growth rate, so their theoretical curves overlap.",
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ),
+
                 //------------------------------------
                 // LEGEND
                 //------------------------------------
@@ -230,7 +256,7 @@ class _ComparePageState extends State<ComparePage> {
                 // EXPLANATION
                 //------------------------------------
                 const Text(
-                  "Why The Curves Differ",
+                  "How They Compare",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
