@@ -28,6 +28,9 @@ class _CodePageState extends State<CodePage> {
             ? binarySearchPython
             : binarySearchC;
 
+      case "Bubble Sort":
+        return selectedLanguage == "Python" ? bubbleSortPython : bubbleSortC;
+
       default:
         return "Code not available";
     }

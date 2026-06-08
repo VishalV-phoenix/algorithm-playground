@@ -12,7 +12,7 @@ import '../widgets/code_view.dart';
 import '../widgets/variables_panel.dart';
 import '../data/algorithm.dart';
 
-//import '../algorithms/bubble_sort_steps.dart';
+import '../algorithms/bubble_sort_steps.dart';
 
 class VisualPage extends StatefulWidget {
   final Algorithm algorithm;
@@ -25,17 +25,17 @@ class VisualPage extends StatefulWidget {
 
 class _VisualPageState extends State<VisualPage> {
   int get targetValue {
-  switch (widget.algorithm.name) {
-    case "Binary Search":
-      return 11;
+    switch (widget.algorithm.name) {
+      case "Binary Search":
+        return 11;
 
-    case "Linear Search":
-      return 9;
+      case "Linear Search":
+        return 9;
 
-    default:
-      return 0;
+      default:
+        return 0;
+    }
   }
-}
 
   int currentStep = 0;
 
@@ -44,11 +44,8 @@ class _VisualPageState extends State<VisualPage> {
       case "Binary Search":
         return generateBinarySearchSteps([1, 3, 5, 7, 9, 11, 13, 15], 11);
 
-      // Uncomment later
-      // case "Bubble Sort":
-      //   return generateBubbleSortSteps(
-      //     [5, 8, 2, 9, 1, 7],
-      //   );
+      case "Bubble Sort":
+        return generateBubbleSortSteps([5, 8, 2, 9, 1, 7]);
 
       case "Linear Search":
       default:
@@ -61,9 +58,8 @@ class _VisualPageState extends State<VisualPage> {
       case "Binary Search":
         return binarySearchCode;
 
-      // Uncomment later
-      // case "Bubble Sort":
-      //   return bubbleSortCode;
+      case "Bubble Sort":
+        return bubbleSortCode;
 
       case "Linear Search":
       default:
@@ -101,26 +97,27 @@ class _VisualPageState extends State<VisualPage> {
                       // ==================================
                       // TARGET DISPLAY
                       // ==================================
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.black26,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.blueAccent),
-                        ),
-                        child: Text(
-                          "Target = $targetValue",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                      if (widget.algorithm.category == "Searching")
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          margin: const EdgeInsets.only(bottom: 16),
+                          decoration: BoxDecoration(
+                            color: Colors.black26,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.blueAccent),
+                          ),
+                          child: Text(
+                            "Target = $targetValue",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
 
                       Center(
                         child: ArrayVisualization(
