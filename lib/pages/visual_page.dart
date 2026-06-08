@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+
 import '../algorithms/binary_search_steps.dart';
 import '../data/algorithm_code.dart';
+
 import '../algorithms/linear_search_steps.dart';
 import '../data/algorithm_step.dart';
+
 import '../widgets/array_visualization.dart';
 import '../widgets/code_view.dart';
+
 import '../widgets/variables_panel.dart';
 import '../data/algorithm.dart';
+
+//import '../algorithms/bubble_sort_steps.dart';
 
 class VisualPage extends StatefulWidget {
   final Algorithm algorithm;
@@ -18,22 +24,57 @@ class VisualPage extends StatefulWidget {
 }
 
 class _VisualPageState extends State<VisualPage> {
+  int get targetValue {
+  switch (widget.algorithm.name) {
+    case "Binary Search":
+      return 11;
+
+    case "Linear Search":
+      return 9;
+
+    default:
+      return 0;
+  }
+}
+
   int currentStep = 0;
+
+  List<AlgorithmStep> getSteps() {
+    switch (widget.algorithm.name) {
+      case "Binary Search":
+        return generateBinarySearchSteps([1, 3, 5, 7, 9, 11, 13, 15], 11);
+
+      // Uncomment later
+      // case "Bubble Sort":
+      //   return generateBubbleSortSteps(
+      //     [5, 8, 2, 9, 1, 7],
+      //   );
+
+      case "Linear Search":
+      default:
+        return generateLinearSearchSteps([5, 8, 2, 9, 1, 7], 9);
+    }
+  }
+
+  List<String> getCodeLines() {
+    switch (widget.algorithm.name) {
+      case "Binary Search":
+        return binarySearchCode;
+
+      // Uncomment later
+      // case "Bubble Sort":
+      //   return bubbleSortCode;
+
+      case "Linear Search":
+      default:
+        return linearSearchCode;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<AlgorithmStep> steps;
-    List<String> codeLines;
-
-    if (widget.algorithm.name == "Binary Search") {
-      steps = generateBinarySearchSteps([1, 3, 5, 7, 9, 11, 13, 15], 11);
-
-      codeLines = binarySearchCode;
-    } else {
-      steps = generateLinearSearchSteps([5, 8, 2, 9, 1, 7], 9);
-
-      codeLines = linearSearchCode;
-    }
+    final steps = getSteps();
+    final codeLines = getCodeLines();
 
     if (currentStep >= steps.length) {
       currentStep = 0;
@@ -43,6 +84,7 @@ class _VisualPageState extends State<VisualPage> {
 
     return Column(
       children: [
+        const SizedBox(height: 6),
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
@@ -71,7 +113,7 @@ class _VisualPageState extends State<VisualPage> {
                           border: Border.all(color: Colors.blueAccent),
                         ),
                         child: Text(
-                          "Target = ${step.variables['target']}",
+                          "Target = $targetValue",
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -84,6 +126,7 @@ class _VisualPageState extends State<VisualPage> {
                         child: ArrayVisualization(
                           array: step.array,
                           highlightedIndices: step.highlightedIndices,
+                          sortedIndices: step.sortedIndices,
                         ),
                       ),
                     ],

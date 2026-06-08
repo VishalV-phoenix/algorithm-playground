@@ -7,10 +7,7 @@ import '../data/algorithm_source_code.dart';
 class CodePage extends StatefulWidget {
   final Algorithm algorithm;
 
-  const CodePage({
-    super.key,
-    required this.algorithm,
-  });
+  const CodePage({super.key, required this.algorithm});
 
   @override
   State<CodePage> createState() => _CodePageState();
@@ -47,7 +44,6 @@ class _CodePageState extends State<CodePage> {
           //----------------------------------
           // LANGUAGE SELECTOR
           //----------------------------------
-
           Row(
             children: [
               ChoiceChip(
@@ -79,7 +75,6 @@ class _CodePageState extends State<CodePage> {
           //----------------------------------
           // CODE BLOCK
           //----------------------------------
-
           Expanded(
             child: Container(
               width: double.infinity,
@@ -87,9 +82,7 @@ class _CodePageState extends State<CodePage> {
               decoration: BoxDecoration(
                 color: Colors.black87,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: Colors.blueAccent,
-                ),
+                border: Border.all(color: Colors.blueAccent),
               ),
               child: SingleChildScrollView(
                 child: SelectableText(
@@ -109,25 +102,18 @@ class _CodePageState extends State<CodePage> {
           //----------------------------------
           // COPY BUTTON
           //----------------------------------
-
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
               icon: const Icon(Icons.copy),
               label: const Text("Copy Code"),
               onPressed: () async {
-                await Clipboard.setData(
-                  ClipboardData(text: code),
-                );
+                await Clipboard.setData(ClipboardData(text: code));
 
                 if (!context.mounted) return;
 
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      "Code copied to clipboard",
-                    ),
-                  ),
+                  const SnackBar(content: Text("Code copied to clipboard")),
                 );
               },
             ),

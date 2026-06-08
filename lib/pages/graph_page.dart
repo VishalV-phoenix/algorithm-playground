@@ -156,25 +156,30 @@ class _GraphPageState extends State<GraphPage> {
           //--------------------------------------------------
           // TITLE
           //--------------------------------------------------
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Complexity Curve",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              Row(
+                children: [
+                  const Text(
+                    "Complexity Curve",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
 
-              const SizedBox(width: 8),
+                  const SizedBox(width: 8),
 
-              IconButton(
-                icon: const Icon(Icons.info_outline, color: Colors.white),
-                tooltip: "How to read this graph",
-                onPressed: () {
-                  showGraphInfoDialog();
-                },
+                  IconButton(
+                    icon: const Icon(Icons.info_outline, color: Colors.white),
+                    tooltip: "How to read this graph",
+                    onPressed: () {
+                      showGraphInfoDialog();
+                    },
+                  ),
+                ],
               ),
             ],
           ),

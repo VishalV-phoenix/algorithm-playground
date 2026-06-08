@@ -75,15 +75,10 @@ class ComplexityGraph extends StatelessWidget {
             leftTitles: AxisTitles(
               axisNameWidget: const Text(
                 "Operations",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               axisNameSize: 30,
-              sideTitles: SideTitles(
-                showTitles: true,
-                reservedSize: 42,
-              ),
+              sideTitles: SideTitles(showTitles: true, reservedSize: 42),
             ),
 
             bottomTitles: AxisTitles(
@@ -91,15 +86,19 @@ class ComplexityGraph extends StatelessWidget {
                 padding: EdgeInsets.only(top: 8),
                 child: Text(
                   "Input Size",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               axisNameSize: 40,
               sideTitles: SideTitles(
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
+                  final interval = maxX / 5;
+
+                  if (value % interval > 1) {
+                    return const SizedBox.shrink();
+                  }
+
                   return Text(value.toInt().toString());
                 },
               ),

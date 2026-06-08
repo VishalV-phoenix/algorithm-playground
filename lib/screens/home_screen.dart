@@ -23,19 +23,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late Algorithm selectedAlgorithm;
 
+  Map<String, List<Algorithm>> get algorithmsByCategory {
+    final Map<String, List<Algorithm>> grouped = {};
+
+    for (final algorithm in algorithms) {
+      grouped.putIfAbsent(algorithm.category, () => []);
+
+      grouped[algorithm.category]!.add(algorithm);
+    }
+
+    return grouped;
+  }
+
   String get pageTitle {
     switch (currentIndex) {
       case 0:
         return selectedAlgorithm.name;
 
       case 1:
-        return "Visualization";
+        return selectedAlgorithm.name;
 
       case 2:
-        return "Code";
+        return selectedAlgorithm.name;
 
       case 3:
-        return "Compare Algorithms";
+        return selectedAlgorithm.name;
 
       default:
         return selectedAlgorithm.name;
@@ -55,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     selectedAlgorithm = algorithms.first;
+
   }
 
   @override
@@ -98,18 +111,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            //--------------------------------------------------
-            // SEARCHING
-            //--------------------------------------------------
-            ...algorithms.map(
-              (algorithm) => ListTile(
-                leading: const Icon(Icons.search),
-                title: Text(algorithm.name),
-                onTap: () {
-                  selectAlgorithm(algorithm);
-                },
-              ),
-            ),
+            ...algorithmsByCategory.entries.map((entry) {
+              return ExpansionTile(
+                initiallyExpanded: true,
+
+                title: Text(
+                  entry.key,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+
+                children: entry.value.map((algorithm) {
+                  return ListTile(
+                    leading: Icon(
+                      entry.key == "Searching" ? Icons.search : Icons.sort,
+                    ),
+
+                    title: Text(algorithm.name),
+
+                    onTap: () {
+                      selectAlgorithm(algorithm);
+                    },
+                  );
+                }).toList(),
+              );
+            }),
           ],
         ),
       ),
@@ -119,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //--------------------------------------------------
       body: Container(
         margin: const EdgeInsets.all(6),
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           border: Border.all(color: primaryBlue, width: 2),
           borderRadius: BorderRadius.circular(16),
@@ -152,10 +178,10 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(12),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: primaryBlue,
+            backgroundColor: const Color.fromARGB(255, 62, 169, 219),
             currentIndex: currentIndex,
             selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white54,
+            unselectedItemColor: const Color.fromARGB(103, 255, 255, 255),
             onTap: (index) {
               setState(() {
                 currentIndex = index;

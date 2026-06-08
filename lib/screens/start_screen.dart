@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/constants/colors.dart';
 import 'home_screen.dart';
+
 /// --------------------
 /// START SCREEN
 /// --------------------
@@ -10,11 +11,11 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkBlue,
+      backgroundColor: const Color.fromARGB(255, 5, 43, 95),
       body: Container(
-        margin: const EdgeInsets.all(1), // border space
+        margin: const EdgeInsets.all(10), // border space
         decoration: BoxDecoration(
-          border: Border.all(color: primaryBlue, width: 1),
+          border: Border.all(color: primaryBlue, width: 5),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -25,17 +26,28 @@ class StartScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(35),
+                      child: Image.asset(
+                        'assets/icon/app_icon.png',
+                        width: 120,
+                        height: 120,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
                     /// Balloon Text
                     const Text(
-                      "Algorithm Playground",
+                      "AlgoQuest",
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: 50,
                         fontWeight: FontWeight.bold,
-                        color: primaryBlue,
+                        color: Color.fromARGB(255, 121, 212, 255),
                         shadows: [
                           Shadow(
-                            blurRadius: 12,
-                            color: Color.fromARGB(97, 255, 255, 255),
+                            blurRadius: 22,
+                            color: Color.fromARGB(143, 255, 255, 255),
                             offset: Offset(0, 4),
                           ),
                         ],
@@ -47,18 +59,14 @@ class StartScreen extends StatelessWidget {
                     /// GET STARTED BUTTON
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(
-                          255,
-                          39,
-                          139,
-                          167,
-                        ),
+                        backgroundColor: Color.fromARGB(255, 61, 142, 180),
                         foregroundColor: Colors.white,
                         elevation: 10, // shadow (floating effect)
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 50,
-                          vertical: 14,
+                          horizontal: 60,
+                          vertical: 18,
                         ),
+                        textStyle: const TextStyle(fontSize: 18),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

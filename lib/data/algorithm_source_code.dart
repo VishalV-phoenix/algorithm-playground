@@ -70,3 +70,37 @@ int binarySearch(int arr[], int n, int target)
     return -1;
 }
 ''';
+
+const bubbleSortPython = '''
+def bubble_sort(arr):
+    n = len(arr)
+
+    for i in range(n - 1):
+        for j in range(n - i - 1):
+
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = \
+                    arr[j + 1], arr[j]
+
+    return arr
+''';
+
+const bubbleSortC = '''
+void bubbleSort(int arr[], int n)
+{
+    for(int i = 0; i < n - 1; i++)
+    {
+        for(int j = 0;
+            j < n - i - 1;
+            j++)
+        {
+            if(arr[j] > arr[j + 1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+''';

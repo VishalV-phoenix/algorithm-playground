@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ArrayVisualization extends StatelessWidget {
   final List<int> array;
   final List<int> highlightedIndices;
+  final List<int> sortedIndices;
 
   const ArrayVisualization({
     super.key,
     required this.array,
     required this.highlightedIndices,
+    this.sortedIndices = const [],
   });
 
   @override
@@ -26,7 +28,11 @@ class ArrayVisualization extends StatelessWidget {
               height: 50,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: highlighted ? Colors.orange : Colors.blue.shade400,
+                color: sortedIndices.contains(index)
+                    ? Colors.green
+                    : highlighted
+                    ? Colors.orange
+                    : Colors.blue.shade400,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(

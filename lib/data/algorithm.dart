@@ -3,6 +3,8 @@ import 'package:fl_chart/fl_chart.dart';
 abstract class Algorithm {
   String get name;
 
+  String get category;
+
   String get bestCase;
   String get averageCase;
   String get worstCase;
