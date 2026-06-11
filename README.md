@@ -140,16 +140,16 @@ flutter run
 ## 📸 Screenshots
 
 ### Home Screen
-![Home](images/home.jpg)
+![Home](screenshots/home.jpg)
 
 ### Graph View
-![Graph](images/graph.jpg)
+![Graph](screenshots/graph.jpg)
 
 ### Algorithm Details
-![Details](images/visuals.jpg)
+![Details](screenshots/visuals.jpg)
 
 ### Comparison Page
-![Compare](images/compare.jpg)
+![Compare](screenshots/compare.jpg)
 
 ---
 
