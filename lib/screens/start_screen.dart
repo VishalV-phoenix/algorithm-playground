@@ -43,7 +43,7 @@ class StartScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 121, 212, 255),
+                        color: Color.fromARGB(255, 59, 193, 255),
                         shadows: [
                           Shadow(
                             blurRadius: 22,
@@ -59,7 +59,7 @@ class StartScreen extends StatelessWidget {
                     /// GET STARTED BUTTON
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 61, 142, 180),
+                        backgroundColor: Color.fromARGB(255, 36, 186, 255),
                         foregroundColor: Colors.white,
                         elevation: 10, // shadow (floating effect)
                         padding: const EdgeInsets.symmetric(
